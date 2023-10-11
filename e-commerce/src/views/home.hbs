@@ -1,0 +1,20 @@
+<h1> pag de HOME</h1>
+
+
+    {{#each products}}
+        <ul>
+            <li>
+                <div>Nombre del producto: {{this.title}} </div>
+            </li>
+            
+        </ul>
+        
+        
+    {{/each}}
+
+<script src="socket.io/socket.io.js"></script> 
+
+
+{{!-- en este script buscamos la carpeta con la que trabajamos en "js" dentro de la vista. --}}
+<script src="js/home.js"></script>
+ 
