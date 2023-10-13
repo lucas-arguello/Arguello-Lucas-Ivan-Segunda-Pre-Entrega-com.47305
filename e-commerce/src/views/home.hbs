@@ -1,10 +1,17 @@
-<h1> pag de HOME</h1>
 
+<h1 class="titleList">Listado de Productos</h1>
 
     {{#each products}}
-        <ul>
+        <ul class="list">
             <li>
                 <div>Nombre del producto: {{this.title}} </div>
+                <div>Precio: {{this.price}} </div>
+                <div>Descripcion: {{this.description}}</div>
+                <div>Imagen: {{this.thumbnail}}</div>
+                <div>Code: {{this.code}} </div>
+                <div>Stock: {{this.stock}}</div>
+                <div>Categoria: {{this.category}} </div>
+
             </li>
             
         </ul>

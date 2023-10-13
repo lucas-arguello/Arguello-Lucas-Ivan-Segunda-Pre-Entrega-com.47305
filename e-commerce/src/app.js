@@ -2,7 +2,6 @@ import express from "express" // importamos el modulo "express" para poder usar 
 import { __dirname } from "./utils.js";//importamos la variable "__dirname" que va servir como punto de acceso a los arch. desde "src"
 import path from "path";
 //import { productsService } from "./dao/index.js"; 
-import mongoose from "mongoose";
 import { productsServiceMongo } from "./dao/index.js"; 
 import { cartsServiceMongo } from "./dao/index.js";
 import { chatsServiceMongo } from "./dao/index.js";

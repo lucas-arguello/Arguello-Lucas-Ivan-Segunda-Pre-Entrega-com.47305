@@ -8,7 +8,10 @@ const cartSchema = new mongoose.Schema({
     products: {
             type: [
                 {
-                    productId:String,
+                    productId:{  //a esta propiedad le aplique el metodo Populacion
+                              type: mongoose.Schema.Types.ObjectId,
+                              ref: "products"
+                            },
 
                     quantity: {
                         type: Number,

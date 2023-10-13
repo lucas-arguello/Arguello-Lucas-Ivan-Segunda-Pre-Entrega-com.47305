@@ -15,11 +15,10 @@ router.get("/", async (req,res) => {
         const products = await productsServiceMongo.getProducts();
 
         const limit = req.query.limit;//creamos el query param "limit". ej: localhost:8080/api/products?limit=2
-        
-        const limitNum = parseInt(limit);//convertimos a "limit" de string a numero
-
-        
+                
         if(limit){
+            const limitNum = parseInt(limit);//convertimos a "limit" de string a numero
+
             //utilizamos el metodo "slice" para obtener una parte del arreglo segun el numero limite que elija el cliente.
             const productsLimit = products.slice(0,limitNum);
             res.json(productsLimit);
@@ -66,9 +65,11 @@ router.post("/", async (req,res) => {
         }
         //con la info. recibida de la peticion POST, creamos el producto con el metodo "createProduct".
         const newProduct = await productsServiceMongo.createProduct(productInfo);
-        
+        //respuesta para que el cliente, del nuevo producto creado.
         res.json({message:"El producto fue creado correctamente", data:newProduct});
-        console.log("Un producto fue creado: ", product);
+
+        console.log("Un producto fue creado: ", newProduct);
+
     }catch(error){
         //respuesta para que el cliente sepa que la peticion no fue resuelta correctamente
         res.json({status:"error",message: error.message}) 
@@ -89,9 +90,6 @@ router.put("/:pid", async (req,res) => {
     }
 });
 
-
-
-
 //Usamos el metodo DELETE para crear una ruta que nos permita eliminar un producto.
 router.delete("/:pid", async (req,res) => {
     try {
@@ -99,14 +97,19 @@ router.delete("/:pid", async (req,res) => {
         const product = await productsServiceMongo.deleteProduct(productId);
         if (product === null) {
             res.json({ status: "error", message: "No se encontró el producto a eliminar" });
+            return;
         } else {
             res.json({ message: "Producto eliminado correctamente", data: product });
             console.log("El producto eliminado es: ", product);
+            return;
         }
     } catch (error) {
         res.json({ status: "error", message: error.message });
+        return;
     }
 
 });
+
+
 
 export {router as productsRouter}; //exportamos la ruta hacia la "app.js".

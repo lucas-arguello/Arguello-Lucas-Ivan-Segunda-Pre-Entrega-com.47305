@@ -9,6 +9,16 @@ export class ProductsManagerMongo{
     };
 
     //Esta funcion es para crear el producto.
+    // async createProduct(productInfo){
+    //     try {
+    //         const product = await this.model.create(productInfo);
+    //         return product;
+    //     } catch (error) {
+    //         console.log("createProduct", error.message);
+    //         throw error;  // Solo lanzar la excepción, no respondas aquí
+    //     }
+    // };
+    
     async createProduct(productInfo){
         try {
             const product = await this.model.create(productInfo);
