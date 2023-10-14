@@ -1,6 +1,7 @@
 import {Router} from "express";//importamos "routes" desde la libreria de express
 //import { productsService } from "../dao/index.js";
 import { productsServiceMongo } from "../dao/index.js";
+import { cartsServiceMongo } from "../dao/index.js";
 
 const router = Router();
 
@@ -45,10 +46,11 @@ router.get("/chats", (req,res)=>{
 
 });
 
+//pagiante// localhost:8080?page=1 ... 2 ...3 ..etc
 router.get('/products', async (req, res) => {
     try {
 
-        const { limit=4, page=1 } = req.query;
+        const { limit= 4, page=1 } = req.query;
         const query = {};
         const options = {
             limit,
@@ -57,7 +59,7 @@ router.get('/products', async (req, res) => {
             lean: true
         }
         const result = await productsServiceMongo.getProductsPaginate(query, options);
-       
+        //console.log('products', result);
         //obtengo la ruta del servidor 
         const baseUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
         const dataProducts = {
@@ -78,25 +80,27 @@ router.get('/products', async (req, res) => {
             baseUrl.concat(`?page=${result.nextPage}`) : null
 
         }
-        //console.log(dataProducts.payload)
-        //console.log(dataProducts.nextLink, dataProducts.prevLink)
+        console.log(result)
+       // console.log(dataProducts.payload)
+       // console.log('Data del console log:', dataProducts.nextLink, dataProducts.prevLink)
         res.render('productsPaginate', dataProducts);
+
     } catch (error) {
         res.status(500).json({ message: error.message });
         
-    };
+    }
 })
 
 //ruta hardcodeada localhost:8080/cart/652832e202a5657f7db4c22a
 router.get('/cart/:cid', async (req, res) => {
-    const cartId = '652832e202a5657f7db4c22a'
+    const cartId = '6652832e202a5657f7db4c22a'
     try {
         const cart = await cartsServiceMongo.getCartsId(cartId);
-        console.log('Prueba en consola', cart);
+        //console.log('Prueba en consola', cart);
         if(!cart){
             return res.status(404).send('No se pudo encontrar el carrito');
         }else{
-            console.log('Carrito en consola ',cart.products);
+            //console.log('Carrito en consola ',cart.products);
             res.status(200).render('cart', { products: cart.products });
             
         }
@@ -104,6 +108,5 @@ router.get('/cart/:cid', async (req, res) => {
         return res.status(500).json({ message: error.message });
     }
 })
-
 
 export {router as viewsRouter};//lo exportamos para poder importarlo en "app.js".

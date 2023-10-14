@@ -26,7 +26,7 @@ export class CartsManagerMongo{
         async getCartsId(cartId) {
 
                 try {//el id lo traigo igual que la DB _id
-                    const cart = await this.model.findById(cartId).populate("products.productId");
+                    const cart = await this.model.findById(cartId).populate("products.productId").lean();
                     return cart;
                 } catch (error) {
                     console.log('getCartsId', error.message);
@@ -99,29 +99,7 @@ export class CartsManagerMongo{
             
         //Esta funcion deberá poder actualizar SÓLO la cantidad de ejemplares del producto por 
         //cualquier cantidad pasada desde req.body
-        // async updateProductInCart(cartId, productId, newQuantity) {
-        //         try {
-        //             const cart = await this.getCartsId(cartId)
-        //             if(cart){
-                    
-        //                 const productIndex =  cart.products.findIndex((prod) => prod.productId._id == productId)
-                                  
-        //                 if(productIndex >= 0){
-        //                     cart.products[productIndex].quantity = newQuantity
-        //                     const result = await this.model.findByIdAndUpdate(cartId, cart, { new: true })
-        //                     return result
-        //                 }else{
-        //                     throw new Error("No se pudo encontrar el producto");
-        //                 }
-        //             }else{
-        //                 throw new Error("No se pudo encontrar el carrito");
-        //             }
         
-        //          } catch (error) {
-        //              console.log('actualizar carrito', error.message);
-        //              throw new Error('No se pudo actualizar el carrito ', error.message);
-        //          }
-        // }
         async updateProductInCart(cartId, productId, newQuantity) {
             try {
                 const cart = await this.getCartsId(cartId)

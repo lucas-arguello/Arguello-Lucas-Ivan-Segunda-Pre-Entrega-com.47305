@@ -9,16 +9,7 @@ export class ProductsManagerMongo{
     };
 
     //Esta funcion es para crear el producto.
-    // async createProduct(productInfo){
-    //     try {
-    //         const product = await this.model.create(productInfo);
-    //         return product;
-    //     } catch (error) {
-    //         console.log("createProduct", error.message);
-    //         throw error;  // Solo lanzar la excepción, no respondas aquí
-    //     }
-    // };
-    
+        
     async createProduct(productInfo){
         try {
             const product = await this.model.create(productInfo);
@@ -82,5 +73,17 @@ export class ProductsManagerMongo{
             console.log("deleteProduct",error.message);
             throw new Error("No se pudo eliminar el producto");
         }
+    };
+
+    //metodo para obtener productos del paginate
+    async getProductsPaginate(query, options){
+        try {
+            const result = await this.model.paginate(query,options);
+            return result
+            
+        } catch (error) {
+            console.log('obtener producto',error.message);
+            throw new Error('No se pudo obtener el listado de  producto',error.message);
+        };
     };
 };
