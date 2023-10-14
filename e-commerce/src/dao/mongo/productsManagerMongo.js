@@ -78,7 +78,7 @@ export class ProductsManagerMongo{
     //metodo para obtener productos del paginate
     async getProductsPaginate(query, options){
         try {
-            const result = await this.model.paginate(query,options);
+            const result = await this.model.paginate(query, options);
             return result
             
         } catch (error) {
