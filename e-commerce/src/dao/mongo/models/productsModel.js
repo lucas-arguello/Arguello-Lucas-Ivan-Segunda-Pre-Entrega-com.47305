@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 //Aqui creo la coleccion "products" en la Base de Datos.
 const productsCollection = "products" 
@@ -42,5 +43,6 @@ const productSchema = new mongoose.Schema({
 
 });
 
+productSchema.plugin(mongoosePaginate);
 //exportamos el modelo de producto y la coleccion.
 export const productsModel = mongoose.model(productsCollection,productSchema);  

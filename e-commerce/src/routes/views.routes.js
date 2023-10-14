@@ -91,9 +91,9 @@ router.get('/products', async (req, res) => {
     }
 })
 
-//ruta hardcodeada localhost:8080/cart/652832e202a5657f7db4c22a
+//ruta hardcodeada localhost:8080/cart/652832e702a5657f7db4c22e
 router.get('/cart/:cid', async (req, res) => {
-    const cartId = '6652832e202a5657f7db4c22a'
+    const cartId = '652832e702a5657f7db4c22e'
     try {
         const cart = await cartsServiceMongo.getCartsId(cartId);
         //console.log('Prueba en consola', cart);
@@ -101,7 +101,7 @@ router.get('/cart/:cid', async (req, res) => {
             return res.status(404).send('No se pudo encontrar el carrito');
         }else{
             //console.log('Carrito en consola ',cart.products);
-            res.status(200).render('cart', { products: cart.products });
+            res.status(200).render('carts', { products: cart.products });
             
         }
     } catch (error) {
